@@ -1,3 +1,19 @@
+/*
+Accounting for different refresh rates: two ways
+
+Way #1: The load-in way
+Check the refresh rate before the demo loads, then operate taking that value
+into account.
+
+Way #2: The on-the-fly way
+Use the parameter of requestAnimationFrame's callback to account for different
+frame speeds.
+
+The second way has the advantage because, although clunky to code, it accounts
+for changes in frame rate throughout the program. If the program begins to lag,
+it will prevent the music and the graphics from desyncing. (Huge win.)
+*/
+
 //If the current display both has a width greater than 1366px and a height greater than 768px, return true.
 const checkDisplaySize = () => {
 	if (window.innerWidth >= 1366 && window.innerHeight >= 768) {
@@ -5,10 +21,6 @@ const checkDisplaySize = () => {
 	}
 
 	return false;
-};
-
-const getRefreshRate = () => {
-	
 };
 
 //Initialize the demo, loading promises for font etc.
@@ -38,14 +50,18 @@ const initDemo = () => {
 	//If the display is greater than 1366x768...
 	if (checkDisplaySize()) {
 		//Wait for all the promises above to resolve.
-		Promise.all([fontPromise]).then(() => {
-			runDemo();
-		}, () => {
-			console.log(fontPromise);
-			//PLACEHOLDER
-			ctx.fillText("Boo!", 683, 374);
-		});
-	} else { //If the display is smaller than 1366x768...
+		Promise.all([fontPromise]).then(
+			() => {
+				runDemo();
+			},
+			() => {
+				console.log(fontPromise);
+				//PLACEHOLDER
+				ctx.fillText("Boo!", 683, 374);
+			}
+		);
+	} else {
+		//If the display is smaller than 1366x768...
 		//Display an error message.
 		ctx.fillText(
 			"Your window must be at least 1366x768 to run this demo.",
@@ -66,8 +82,7 @@ const initDemo = () => {
 
 	const runDemo = () => {
 		const image = document.getElementById("test-image");
-	
+
 		ctx.drawImage(image, 0, 0, 1366, 768);
 	};
-	
 };
