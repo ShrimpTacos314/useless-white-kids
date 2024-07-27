@@ -7,6 +7,10 @@ const checkDisplaySize = () => {
 	return false;
 };
 
+const getRefreshRate = () => {
+	
+};
+
 //Initialize the demo, loading promises for font etc.
 const initDemo = () => {
 	//Initalize Canvas2DContext
@@ -35,9 +39,9 @@ const initDemo = () => {
 	if (checkDisplaySize()) {
 		//Wait for all the promises above to resolve.
 		Promise.all([fontPromise]).then(() => {
-			//PLACEHOLDER
-			ctx.fillText("Yay!", 683, 374);
-		}).catch(() => {
+			runDemo();
+		}, () => {
+			console.log(fontPromise);
 			//PLACEHOLDER
 			ctx.fillText("Boo!", 683, 374);
 		});
@@ -59,4 +63,11 @@ const initDemo = () => {
 			414
 		);
 	}
+
+	const runDemo = () => {
+		const image = document.getElementById("test-image");
+	
+		ctx.drawImage(image, 0, 0, 1366, 768);
+	};
+	
 };
