@@ -9,9 +9,15 @@ Way #2: The on-the-fly way
 Use the parameter of requestAnimationFrame's callback to account for different
 frame speeds.
 
-The second way has the advantage because, although clunky to code, it accounts
+The second way has the advantage because, although clunkier to code, it accounts
 for changes in frame rate throughout the program. If the program begins to lag,
 it will prevent the music and the graphics from desyncing. (Huge win.)
+
+TODO:
+
+- Start work on an .it player for the music
+- Test refresh rate variability stuff
+- Plan LOL
 */
 
 //If the current display both has a width greater than 1366px and a height greater than 768px, return true.
